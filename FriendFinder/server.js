@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 
+var friendsData = require("./app/data/friends.js");
+
 //Declaring the express server
 const app = express();
 
@@ -24,6 +26,10 @@ app.get("/", function (req, res) {
 app.get("/survey", function (req, res) {
     res.sendFile(path.join(__dirname, "app/public/survey.html"));
 });
+
+app.get("/api/friends", function(req, res) {
+    res.json(friendsData);
+  });
 
 //Listener to detect server
 app.listen(PORT, function () {
