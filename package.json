@@ -2,10 +2,10 @@
   "name": "FriendFinder",
   "version": "1.0.0",
   "description": "Web application to find friends",
-  "main": "index.js",
+  "main": "FriendFinder/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  },"start":"node FriendFinder/server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bee25141/FriendFinder.git"
