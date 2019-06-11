@@ -16,20 +16,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 //Router to direct server to display different web pages or get data from the api
-// require("./routing/apiRoutes")(app);
-// require("./routing/htmlRoutes")(app);
-
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "app/public/home.html"));
-});
-
-app.get("/survey", function (req, res) {
-    res.sendFile(path.join(__dirname, "app/public/survey.html"));
-});
-
-app.get("/api/friends", function(req, res) {
-    res.json(friendsData);
-  });
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 //Listener to detect server
 app.listen(PORT, function () {

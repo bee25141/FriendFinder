@@ -1,29 +1,37 @@
 //Linking route to data
 var friendsData = require("../data/friends.js");
 
-module.exports = function(app) {
-  // API GET Requests
-  app.get("/api/tables", function(req, res) {
-    res.json();
-  });
+module.exports = function (app) {
+    // API GET Requests
+    app.get("/api/friends", function (req, res) {
+        res.json(friendsData);
+    });
+    // API POST Requests
+    app.post('/api/friends', function (req, res) {
 
-  app.get("/api/waitlist", function(req, res) {
-    res.json();
-  });
+        var userInput = req.body;
 
-  // API POST Requests
-  // Below code handles when a user submits a form and thus submits data to the server.
-  // In each of the below cases, when a user submits form data (a JSON object)
-  // ...the JSON is pushed to the appropriate JavaScript array
-  // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
-  // ---------------------------------------------------------------------------
+        for (var i = 0; i < userInput.scores.length; i++) {
+            userInput.scores[i] = parseInt(userInput.scores[i]);
+        }
 
-  app.post("/api/tables", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body parsing middleware
-      friendsData.push(req.body);
-      res.json(true);
-  });
+        var friendIndex = 0;
+        var differenceMin = 40;
+
+        for (var i = 0; i < friendsData.length; i++) {
+            var diffTotal = 0;
+            for (var j = 0; j < friendsData[i].scores.length; j++) {
+                var difference = Math.abs(userInput.scores[j] - friendsData[i].scores[j]);
+                diffTotal += difference;
+            }
+
+            if (diffTotal < differenceMin) {
+                friendIndex = i;
+                differenceMin = diffTotal;
+            }
+        }
+
+        friendsData.push(userInput);
+        res.json(friendsData[friendIndex]);
+    });
 };
