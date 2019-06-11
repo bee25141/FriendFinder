@@ -4,8 +4,9 @@
   "description": "Web application to find friends",
   "main": "FriendFinder/server.js",
   "scripts": {
+    "start":"node FriendFinder/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },"start":"node FriendFinder/server.js",
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bee25141/FriendFinder.git"
